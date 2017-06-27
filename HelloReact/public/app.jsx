@@ -16,21 +16,36 @@ var GreeterForm = React.createClass({
 	onFormSubmit: function(e) {
 		e.preventDefault();
 
+		var updates = {}; // will populate to then pass into handleNewData
 		var name = this.refs.name.value;
-		var updates = {};
+		var message = this.refs.message.value;
+		
 
 		if (name.length > 0) {
 			this.refs.name.value = '';
-			this.props.onNewName(name); // calls function passed in from the parent, where it sets the state below in handleNewName
-			//updates.name = name;
+			updates.name = name;
 		}
+
+		if (message.length > 0) {
+			this.refs.message.value = '';
+			updates.message = message;
+		}
+
+		this.props.onNewData(updates); // passes up the chain to Greeter component.
 	},
 
 	render: function() {
 		return (
 			<form onSubmit={this.onFormSubmit}>
-				<input type="text" ref="name"/>
-				<button>Set Name</button>
+				<div>
+					<input type="text" ref="name" placeholder="Enter name"/>
+				</div>	
+				<div>			
+					<input type="text" ref="message" placeholder="Enter message"/>
+				</div>	
+				<div>				
+					<button>Submit</button>
+				</div>
 			</form>
 		);
 	}
@@ -46,27 +61,29 @@ var Greeter = React.createClass({
 	},
 
 	getInitialState: function() {
-		return { name: this.props.name };
+		return { 
+			name: this.props.name,
+			message: this.props.message
+		};
 	},
 
 	// e is event object it's nothing special jQuery uses it and so does regular JS event handlers. 
-	handleNewName: function(name) { 
+	handleNewData: function(updates) { 
 		
-		this.setState({
-			name: name
-		});
+		// takes in an object and updates is such.
+		this.setState(updates);
 	},
 
 	render: function() {
 
 		// var name = this.props.name; // now becomes this.state.name so a user can now change value of var name.
-		var name = this.state.name // ties into getInitialState to get assigned the value from this.props.name, which is disapledy in the Hello line.
-		var message = this.props.message;
+		var name = this.state.name // ties into getInitialState 'name' state, which is assigned this.props.name value.
+		var message = this.state.message;
 
 		return (
 			<div>
 				<GreeterMessage name={name} message={message}/>
-				<GreeterForm onNewName={this.handleNewName}/>
+				<GreeterForm onNewData={this.handleNewData}/>
 			</div>
 		);
 	}

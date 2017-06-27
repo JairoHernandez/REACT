@@ -122,6 +122,8 @@ There are two types of data in a component:	props and state.
 
 -------------Nested Components: Part 1 & 2-------------
 
+A component cannot update its prop but it can update its state.
+
 It's best to make a static component first, meaning no props or state are being used or passed in.
 
 Presentational component renders something visible to the screen like "Hello Andrew".
@@ -134,3 +136,69 @@ It automatically re-renders its children when state changes.
 <GreeterForm onNewName={this.handleNewName}/> // the attribute for the child start with 'on' and for the parent it starts with 'handle'.
 
 Only updates the green component because the blue component does not care about the state of its parent.
+Whenever you changed state it re-renders.
+
+-------------QUIZ 1-------------
+
+What are React props used for? Initializing a component with data.
+What is React state used for? Keeping track of data that changes in a component.
+What is a presentational component? A component that uses props to display information.
+What is a container component? A component that maintains state & renders child components.
+How would you set a components "name" state to "John"? this.setState({name: 'John'}).
+
+-------------What is Webpack?(And installing it.)-------------
+
+WEbpack bundles all of our 3rd party dependencies like babel, react, and reactdom along with app code.
+Let's us break components into separate files sort like 'require' in node.
+
+~/REACT/HelloReact$ npm install -g webpack@1.12.13
+jairomh@ubuntu64-DevOps:~/REACT/HelloReact$ webpack -h
+webpack 1.12.13
+Usage: https://webpack.github.io/docs/cli.html
+
+Options:
+  --help, -h, -?                                                                                  
+  --config                                                                                        
+  --context    
+
+~/REACT/HelloReact$ npm install -save react@0.14.7 react-dom@0.14.7
+
+Install local dependencies for dev purposes only and not for production.
+        
+~/REACT/HelloReact$ npm install --save-dev webpack@1.12.13 babel-core@6.5.1 babel-loader@6.2.2 babel-preset-es2015@6.5.0 babel-preset-react@6.5.0
+
+~/REACT/HelloReact$ webpack ./public/app.js ./public/bundle.js
+Hash: ccbca6cc6c5a756e0b3e
+Version: webpack 1.12.13
+Time: 71ms
+    Asset     Size  Chunks             Chunk Names
+bundle.js  1.47 kB       0  [emitted]  main
+   [0] ./public/app.js 79 bytes {0} [built]
+
+-------------What is Webpack?(And installing it.)-------------
+
+webpack.config.js is a very important file that exports an object to let you configure what webpack does.
+By adding this in there all you need do is run webpback command without supplying filenames.
+
+	module.exports = {
+		entry: './public/app.js',
+		output: {
+			path: __dirname,
+			filename: './public/bundle.js'
+		},
+		resolve: {
+			extensions: ['', '.js', '.jsx']
+		}
+	};
+
+
+	~/REACT/HelloReact$ webpack
+	Hash: 7f675e0aa18af882cb64
+	Version: webpack 1.12.13
+	Time: 78ms
+				Asset     Size  Chunks             Chunk Names
+	./public/bundle.js  1.62 kB       0  [emitted]  main
+	[0] ./public/app.js 59 bytes {0} [built]
+		+ 1 hidden modules <<< 	WHERE THAT FILE IS Greeter.js
+
+4:40
