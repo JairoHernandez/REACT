@@ -1,9 +1,12 @@
 var GreeterMessage = React.createClass({
 	render: function() {
+		var name = this.props.name;
+		var message = this.props.message;
+
 		return (
 			<div>
-				<h1>Some H1</h1>
-				<p>Some paragraph</p>
+				<h1>Hello {name}!</h1>
+				<p>{message}</p>
 			</div>
 		);
 	}
@@ -11,23 +14,24 @@ var GreeterMessage = React.createClass({
 
 var GreeterForm = React.createClass({
 	onFormSubmit: function(e) {
-		e.prenvetDefault();
+		e.preventDefault();
 
 		var name = this.refs.name.value;
+		var updates = {};
 
 		if (name.length > 0) {
 			this.refs.name.value = '';
+			this.props.onNewName(name); // calls function passed in from the parent, where it sets the state below in handleNewName
+			//updates.name = name;
 		}
 	},
 
 	render: function() {
 		return (
-			<div>
-				<form>
-					<input type="text" ref="name"/>
-					<button>Set Name</button>
-				</form>
-			</div>
+			<form onSubmit={this.onFormSubmit}>
+				<input type="text" ref="name"/>
+				<button>Set Name</button>
+			</form>
 		);
 	}
 });
@@ -37,7 +41,7 @@ var Greeter = React.createClass({
 	getDefaultProps: function() {
 		return {
 			name: 'React', // This is a prop accessed by this.props.
-			message: 'This is React message.'
+			message: 'This is React message sir.'
 		};
 	},
 
@@ -46,20 +50,11 @@ var Greeter = React.createClass({
 	},
 
 	// e is event object it's nothing special jQuery uses it and so does regular JS event handlers. 
-	onButtonClick: function(e) { 
+	handleNewName: function(name) { 
 		
-		e.preventDefault(); // Prevents form from causing full browser refresh when its submitted. This is the goal of React for SPAs.
-
-		var nameRef = this.refs.name;
-		var name= nameRef.value; // tied to ref field from from.
-		nameRef.value = '';
-
-		if (typeof name === 'string' && name.length > 0) {
-
-			this.setState({
-				name: name
-			});
-		}
+		this.setState({
+			name: name
+		});
 	},
 
 	render: function() {
@@ -70,17 +65,8 @@ var Greeter = React.createClass({
 
 		return (
 			<div>
-				<h1>Hello {name}!!</h1> 
-				<p>{message + '!!'}</p>
-
-				<GreeterMessage/>
-
-				<form onSubmit={this.onButtonClick}>
-					<input type="text" ref="name"/>
-					<button>Set Name</button>
-				</form>
-
-				<GreeterForm/>
+				<GreeterMessage name={name} message={message}/>
+				<GreeterForm onNewName={this.handleNewName}/>
 			</div>
 		);
 	}
@@ -91,5 +77,5 @@ var Greeter = React.createClass({
 var firstName = 'Jairo'
 
 ReactDOM.render(
-	<Greeter name={firstName} message='This is prop message.' />, document.getElementById('app')
+	<Greeter name={firstName}/>, document.getElementById('app')
 );

@@ -131,4 +131,6 @@ The Container component(in red aka parent) do maintain state.
 Red component maintains 'name' state and when changed by blue component it will re-render green component.
 It automatically re-renders its children when state changes.
 
-4:34
+<GreeterForm onNewName={this.handleNewName}/> // the attribute for the child start with 'on' and for the parent it starts with 'handle'.
+
+Only updates the green component because the blue component does not care about the state of its parent.
