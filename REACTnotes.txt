@@ -1,3 +1,6 @@
+test clone
+test 2
+
 'npm install express@4 express --save' (will create node_mofules folder and adds entry in dependencies section)
 'npm install by' itself installs dependencies based on what package.json says, which also re-installs node_modules folder.
 
