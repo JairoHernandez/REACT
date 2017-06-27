@@ -1,0 +1,131 @@
+'npm install express@4 express --save' (will create node_mofules folder and adds entry in dependencies section)
+'npm install by' itself installs dependencies based on what package.json says, which also re-installs node_modules folder.
+
+
+-------------Hello React - Hello React!-------------
+
+<script type="text/javascript" scrc="https://cdnjs.cloudflare.com/ajax/libs/0.14.7/react.js"></script>
+<script type="text/javascript" scrc="https://cdnjs.cloudflare.com/ajax/libs/0.14.7/react-dom.js"></script>
+
+	react.js is for native IOS and Android.
+	react-dom.js is for the WEB.
+
+	We will eventually upgrade from script tags to webpack in later sections.
+
+Babel provides supports your ES6 code and compiles it to older ES5 code so older browsers can run it.
+To convert JSX into JS or convert ES6 code into ES5 include babel script tag.
+	
+	<head>
+		<script type="text/javascript" scrc="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+	<body>
+		<script type="text/babel"></script>
+	
+-------------Your First React Component!-------------
+
+React component naming convention. 
+	- 1st letter is always capitalized.
+
+React.createClass always takes in an object and always requires render.
+
+	var GreeterWord = React.createClass({
+		render: function() {
+			return (
+				// THIS IS JSX
+				<div> // root <div>
+					<h1>Hello render react!!!</h1>
+					<p>This is from the component.</p>
+				</div>
+			);
+		}
+	});
+
+	NOTE!! when returning your JSX you have to only return one root element in our example it is the root <div>
+
+-------------Learning JSX-------------
+https://babeljs.io.repl
+
+-------------Component properties-------------
+'props' is short for properties and it's a way to pass in data into your component when you first start it.
+
+Here we are initializing the Greeter component but not passing data.
+
+	ReactDOM.render(
+		<Greeter />, document.getElementById('app')
+	);
+
+Do this to pass data via a 'name' property.
+
+	var Greeter = React.createClass({
+
+		getDefaultProps: function() {
+			return {
+				name: 'React', // This is a prop accessed by this.props.
+				message: 'This is React message.'
+			};
+		},
+
+		render: function() {
+
+			var name = this.props.name; 
+			var message = this.props.message;
+
+			return (
+				<div>
+					<h1>Hello {name}!!</h1> 
+					<p>{message + '!!'}</p> // You can concatenate text inside JSX expression.
+				</div>
+			);
+		}
+	});
+
+	// You can also pass in variable values just like componet properties. 
+	// This means any type is availabe when working with props.
+	var firstName = 'Jairo'
+
+	ReactDOM.render(
+		<Greeter name={firstName} message='This is prop message.' />, document.getElementById('app')
+	);
+
+-------------User Events and Callbacks-------------
+
+'onSubmit' is an  attribute built into React.
+It captures everytime a form is submitted and we can pass it a JS expression.
+'ref' ia another React builin attribute	
+
+	onButtonClick: function(e) { 
+		e.preventDefault(); // Prevents form from causing full browser refresh when its submitted. This is the goal of React for SPAs.
+		var name= this.refs.name.value; // tied to ref field from from.
+		alert(name);
+	},
+	.....
+	<form onSubmit={this.onButtonClick}>
+		<input type="text" ref="name"/>
+		<button>Set Name</button>
+	</form>
+
+-------------Component State-------------
+
+There are two types of data in a component:	props and state.
+	
+	- props get passed into a component as you initialize it, the prop is 'name'.
+		
+		<Greeter name={firstName}
+	
+	- state is internally maintained and updated by the component. 
+	It should not update its own props, but it is allowed to update its own state.
+	
+	Always answer this:  IS MY COMPONENT GOING TO BE UPDATING THE VALUE?
+	To know if I need to use state.
+
+-------------Nested Components: Part 1 & 2-------------
+
+It's best to make a static component first, meaning no props or state are being used or passed in.
+
+Presentational component renders something visible to the screen like "Hello Andrew".
+They do not maintain state are kind of like dummy components.
+
+The Container component(in red aka parent) do maintain state. 
+Red component maintains 'name' state and when changed by blue component it will re-render green component.
+It automatically re-renders its children when state changes.
+
+4:34
