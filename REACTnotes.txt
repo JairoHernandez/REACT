@@ -201,4 +201,18 @@ By adding this in there all you need do is run webpback command without supplyin
 	[0] ./public/app.js 59 bytes {0} [built]
 		+ 1 hidden modules <<< 	WHERE THAT FILE IS Greeter.js
 
-4:40
+After removing the script tags 'React' is not available in app.jsx. When using webpack every file is treated as its own island.
+It's not available globally and needs to be imported explicitly.
+
+	var React = require('react');
+	var ReactDOM = require('react-dom');
+
+	Run webpack again and you see that there are a lot more dependencies this time.
+
+	~/REACT/HelloReact$ webpack 
+	Hash: 84fd7d74053b8bd7605e
+	Version: webpack 1.15.0
+	Time: 2201ms
+				Asset    Size  Chunks             Chunk Names
+	./public/bundle.js  683 kB       0  [emitted]  main
+		+ 159 hidden modules
