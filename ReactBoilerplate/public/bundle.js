@@ -48,13 +48,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var Greeter = __webpack_require__(159);
 
-	// You can also pass in variable values just like componet properties. 
-	// This means any type is availabe when working with props.
-	var firstName = 'Odie';
-
-	ReactDOM.render(React.createElement(Greeter, { name: firstName }), document.getElementById('app'));
+	ReactDOM.render(React.createElement(
+		'h1',
+		null,
+		'Boilerplate app!'
+	), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -19749,154 +19748,6 @@
 
 	module.exports = __webpack_require__(3);
 
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var GreeterForm = __webpack_require__(160);
-	var GreeterMessage = __webpack_require__(161);
-
-	var Greeter = React.createClass({
-		displayName: 'Greeter',
-
-
-		getDefaultProps: function getDefaultProps() {
-			return {
-				name: 'React', // This is a prop accessed by this.props.
-				message: 'This is React message sir.'
-			};
-		},
-
-		getInitialState: function getInitialState() {
-			return {
-				name: this.props.name,
-				message: this.props.message
-			};
-		},
-
-		// e is event object it's nothing special jQuery uses it and so does regular JS event handlers. 
-		handleNewData: function handleNewData(updates) {
-
-			// takes in an object and updates is such.
-			this.setState(updates);
-		},
-
-		render: function render() {
-
-			// var name = this.props.name; // now becomes this.state.name so a user can now change value of var name.
-			var name = this.state.name; // ties into getInitialState 'name' state, which is assigned this.props.name value.
-			var message = this.state.message;
-
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(GreeterMessage, { name: name, message: message }),
-				React.createElement(GreeterForm, { onNewData: this.handleNewData })
-			);
-		}
-	});
-
-	module.exports = Greeter;
-
-/***/ },
-/* 160 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var GreeterForm = React.createClass({
-		displayName: 'GreeterForm',
-
-		onFormSubmit: function onFormSubmit(e) {
-			e.preventDefault();
-
-			var updates = {}; // will populate to then pass into handleNewData
-			var name = this.refs.name.value;
-			var message = this.refs.message.value;
-
-			if (name.length > 0) {
-				this.refs.name.value = '';
-				updates.name = name;
-			}
-
-			if (message.length > 0) {
-				this.refs.message.value = '';
-				updates.message = message;
-			}
-
-			this.props.onNewData(updates); // passes up the chain to Greeter component.
-		},
-
-		render: function render() {
-			return React.createElement(
-				'form',
-				{ onSubmit: this.onFormSubmit },
-				React.createElement(
-					'div',
-					null,
-					React.createElement('input', { type: 'text', ref: 'name', placeholder: 'Enter name' })
-				),
-				React.createElement(
-					'div',
-					null,
-					React.createElement('input', { type: 'text', ref: 'message', placeholder: 'Enter message' })
-				),
-				React.createElement(
-					'div',
-					null,
-					React.createElement(
-						'button',
-						null,
-						'Submit'
-					)
-				)
-			);
-		}
-	});
-
-	module.exports = GreeterForm;
-
-/***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var GreeterMessage = React.createClass({
-		displayName: 'GreeterMessage',
-
-		render: function render() {
-			var name = this.props.name;
-			var message = this.props.message;
-
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'h1',
-					null,
-					'Hello ',
-					name,
-					'!'
-				),
-				React.createElement(
-					'p',
-					null,
-					message
-				)
-			);
-		}
-	});
-
-	module.exports = GreeterMessage;
 
 /***/ }
 /******/ ]);

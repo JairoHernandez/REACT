@@ -216,3 +216,57 @@ It's not available globally and needs to be imported explicitly.
 				Asset    Size  Chunks             Chunk Names
 	./public/bundle.js  683 kB       0  [emitted]  main
 		+ 159 hidden modules
+
+-------------Webpack: Custom package names-------------
+
+Remove the ./ and path to your jsx file.
+
+	var GreeterForm = require('./GreeterForm');
+to this
+	var GreeterForm = require('GreeterForm');
+which allows you to re-use the same entry in any other jsx file and if you move the jsx file 
+just update it one place in webpack.config.js below.
+
+	resolve: {
+		root: __dirname,
+			alias: {
+				Greeter: 'public/components/Greeter.jsx',
+				GreeterMessage: 'public/components/GreeterMessage.jsx',
+				GreeterForm: 'public/components/GreeterForm.jsx'
+			}
+
+One more tip is this webpack equivalent to nodemon.
+~/REACT/HelloReact$ webpack -w
+Hash: 82eae04f3588c571f6f2
+Version: webpack 1.12.13
+Time: 2724ms
+             Asset    Size  Chunks             Chunk Names
+./public/bundle.js  683 kB       0  [emitted]  main
+    + 162 hidden modules
+
+-------------Boilerplate project-------------
+
+Copy all contents of HelloReact folder to make a new folder called ReactBoilerplate.
+Remove all alias entries from its array in webpack.config.js.
+
+	Greeter: 'public/components/Greeter.jsx',
+	GreeterMessage: 'public/components/GreeterMessage.jsx',
+	GreeterForm: 'public/components/GreeterForm.jsx'
+
+Create folder ReactBoilerplate/app and move folder 'components' and 'app.jsx' into it.
+This is where we are going to store all our raw files. In this case our jsx files before they get passed thru bundler.
+
+Change entry: './public/app.jsx', to entry: './app/app.jsx',
+Keep this the same filename: './public/bundle.js' becaue the bundle file is used by the browser inside index.html, which live in the same folder.
+
+package.json
+	Change "name": "hello-react" to "name": "boilerplate". Try to use lowercase letters with no spaces to avoid future errors.
+
+Remove this from app.jsx since not needed in a boilerplate.
+
+	var Greeter = require('./components/Greeter');
+
+	// You can also pass in variable values just like componet properties. 
+	// This means any type is availabe when working with props.
+	var firstName = 'Odie'
+
