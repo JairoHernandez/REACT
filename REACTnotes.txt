@@ -270,3 +270,22 @@ Remove this from app.jsx since not needed in a boilerplate.
 	// This means any type is availabe when working with props.
 	var firstName = 'Odie'
 
+-------------Bonus: Using Experimental Javascript Features-------------
+
+For this experimentla ES6 feature ...objOne to work you need to install stage-0 webpack plugin.
+
+	~/REACT/ReactBoilerplate$ npm install babel-preset-stage-0 --save-dev
+
+	app.jsx
+		var objOne = { 	name: 'Jairo', 	location: 'Mansfield' };
+		var objTwo = { age: 37, ...objOne };
+
+	and it needs to be added in	webpack.config.js
+		
+		presets: ['react', 'es2015', 'stage-0']
+
+-------------Adding React Router-------------
+
+~/REACT/ReactWeather$ npm install react-router@2.0.0 --save
+
+6:07
