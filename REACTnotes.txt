@@ -288,4 +288,15 @@ For this experimentla ES6 feature ...objOne to work you need to install stage-0 
 
 ~/REACT/ReactWeather$ npm install react-router@2.0.0 --save
 
-6:07
+// If you forget module.exports you will get 'Error: The root route must render a single element'
+module.exports = Main; 
+
+Create Nav component and render inside of the Main component.
+History tracking
+	app.jsx
+		<Router history={hashHistory}>
+
+In browser this ?_k is used by react router to keep track of state of application between route changes.
+	http://localhost:3000/#/?_k=rupgln
+
+	-------------Creating our pages-------------
