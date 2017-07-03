@@ -292,11 +292,25 @@ For this experimentla ES6 feature ...objOne to work you need to install stage-0 
 module.exports = Main; 
 
 Create Nav component and render inside of the Main component.
-History tracking
+History hash is used to track pages with '#/[urlname]' in URL.
 	app.jsx
 		<Router history={hashHistory}>
 
-In browser this ?_k is used by react router to keep track of state of application between route changes.
+In browser this 'k' info is used by react router to keep track of state of application between route changes.
 	http://localhost:3000/#/?_k=rupgln
 
-	-------------Creating our pages-------------
+	The '/' URL after '#' is used by this 
+	app.jsx
+		<Route path="/" component={Main}>
+
+-------------Creating our pages-------------
+
+'/' renders {Weather} while '/about' renders {About}
+	
+	<Route path="/" component={Main}>
+		<Route path="about" component={About}/> 
+		<IndexRoute component={Weather}/>
+	</Route>		
+
+	The about component is found via this URL
+		http://localhost:3000/#/about?_k=18lqiu
