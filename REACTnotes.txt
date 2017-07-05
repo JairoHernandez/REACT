@@ -339,4 +339,48 @@ this.state and this.props are both objects
 
 -------------Making Our API Call-------------
 
-5:39
+-------------Debugging and the React Router-------------
+
+-------------Google Chrome 'React Developer Tools-------------
+-------------Advanced Debugging-------------
+Due to a library bug there is a small issue in the next video. 
+In the next lecture you'll learn how to setup source maps by setting a "devtool" property in webpack.config.js. 
+In the lecture I set the value to "cheap-module-eval-source-map". This might cause the source maps to not work as shown in the video.
+If you are getting this error, try setting the value to either "inline-source-map" or "eval-source-map" instead.
+
+Pause execution of code. This is where real debugging happens.
+	debugger;
+
+sourcemaps let's you debug the code you actually wrote instead of having to look at that big transformed bundle.js file.
+Add this to webpack.config.js
+	devtool: 'cheap-module-eval-source-map'.
+
+Cool you dont even need to use console.log in the console. Just type in the variable name.
+
+-------------ES6 Asside: Arrow Functions-------------
+
+Anonymous functions have a 'this' binding.
+Arrow functions take on their parent's 'this' binding.
+
+-------------Refactoring: Stateless Functional Components-------------
+
+Brand new feature in 0.14 of React.
+Presentational components dont carry state so you can swap out React.createClass that only carry a 
+'render' key  with an anonymous function(or arrow function).
+These two functions are equivalent:
+	About.jsx
+		// var About = React.createClass({
+		//     render: function() {
+		//         return (
+		//             <h3>About Component</h3>
+		//         );
+		//     }
+		// });
+
+		var About = (props) => {
+			return (
+				<h3>About Component</h3>
+			);
+		}
+
+4:44
